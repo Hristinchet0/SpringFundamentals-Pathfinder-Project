@@ -13,7 +13,7 @@ public class RouteEntity extends BaseEntity{
     private String description;
 
     @Column(name = "gpx_coordinates", columnDefinition = "LONGTEXT")
-    private String gpxCoordinate;
+    private String gpxCoordinates;
 
     @Enumerated(EnumType.STRING)
     private UserLevelEnum level;
@@ -33,12 +33,12 @@ public class RouteEntity extends BaseEntity{
     public RouteEntity() {
     }
 
-    public String getGpxCoordinate() {
-        return gpxCoordinate;
+    public String getGpxCoordinates() {
+        return gpxCoordinates;
     }
 
-    public void setGpxCoordinate(String gpxCoordinate) {
-        this.gpxCoordinate = gpxCoordinate;
+    public void setGpxCoordinates(String gpxCoordinates) {
+        this.gpxCoordinates = gpxCoordinates;
     }
 
     public UserLevelEnum getLevel() {
