@@ -1,36 +1,37 @@
-package com.example.pathfinder.model.entity;
+package com.example.pathfinder.model.service;
 
+import com.example.pathfinder.model.entity.RoleEntity;
 import com.example.pathfinder.model.enums.UserLevelEnum;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class UserServiceModel {
 
-    @Column(name = "username", nullable = false, unique = true)
+    private Long id;
+
     private String username;
 
-    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "age")
     private Integer age;
 
-    @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
     private Set<RoleEntity> roles;
 
-    @Enumerated(EnumType.STRING)
     private UserLevelEnum level;
 
-    public UserEntity() {
+    public UserServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -47,6 +48,22 @@ public class UserEntity extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getEmail() {
@@ -71,21 +88,5 @@ public class UserEntity extends BaseEntity {
 
     public void setLevel(UserLevelEnum level) {
         this.level = level;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 }
