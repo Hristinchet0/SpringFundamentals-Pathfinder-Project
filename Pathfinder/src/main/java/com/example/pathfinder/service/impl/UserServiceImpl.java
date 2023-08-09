@@ -5,6 +5,7 @@ import com.example.pathfinder.model.enums.UserLevelEnum;
 import com.example.pathfinder.model.service.UserServiceModel;
 import com.example.pathfinder.repository.UserRepository;
 import com.example.pathfinder.service.UserService;
+import com.example.pathfinder.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,12 @@ public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    private final CurrentUser currentUser;
+
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -33,5 +37,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsernameAndPassword(username, password)
                 .map(user -> modelMapper.map(user, UserServiceModel.class))
                 .orElse(null);
+    }
+
+    @Override
+    public void loginUser(Long id, String username) {
+        currentUser.setUsername(username);
+        currentUser.setId(id);
+    }
+
+    @Override
+    public void logoutUser() {
+        currentUser.setId(null);
+        currentUser.setUsername(null);
     }
 }
