@@ -1,39 +1,41 @@
-package com.example.pathfinder.model.entity;
+package com.example.pathfinder.model.service;
 
+import com.example.pathfinder.model.entity.CategoryEntity;
+import com.example.pathfinder.model.entity.PictureEntity;
+import com.example.pathfinder.model.entity.UserEntity;
 import com.example.pathfinder.model.enums.UserLevelEnum;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "routes")
-public class RouteEntity extends BaseEntity{
+public class RouteServiceModel {
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    private Long id;
 
-    @Column(name = "gpx_coordinates", columnDefinition = "LONGTEXT")
     private String gpxCoordinates;
 
-    @Enumerated(EnumType.STRING)
+    private String description;
+
     private UserLevelEnum level;
 
-    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column
+    private UserEntity user;
+
     private String videoUrl;
 
-    @ManyToOne
-    private UserEntity author;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<CategoryEntity> categories;
-
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
     private Set<PictureEntity> pictures;
 
-    public RouteEntity() {
+    private Set<CategoryEntity> categories;
+
+    public RouteServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getGpxCoordinates() {
@@ -42,6 +44,14 @@ public class RouteEntity extends BaseEntity{
 
     public void setGpxCoordinates(String gpxCoordinates) {
         this.gpxCoordinates = gpxCoordinates;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public UserLevelEnum getLevel() {
@@ -60,12 +70,12 @@ public class RouteEntity extends BaseEntity{
         this.name = name;
     }
 
-    public UserEntity getAuthor() {
-        return author;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setAuthor(UserEntity author) {
-        this.author = author;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public String getVideoUrl() {
@@ -76,12 +86,12 @@ public class RouteEntity extends BaseEntity{
         this.videoUrl = videoUrl;
     }
 
-    public String getDescription() {
-        return description;
+    public Set<PictureEntity> getPictures() {
+        return pictures;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPictures(Set<PictureEntity> pictures) {
+        this.pictures = pictures;
     }
 
     public Set<CategoryEntity> getCategories() {
@@ -90,13 +100,5 @@ public class RouteEntity extends BaseEntity{
 
     public void setCategories(Set<CategoryEntity> categories) {
         this.categories = categories;
-    }
-
-    public Set<PictureEntity> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(Set<PictureEntity> pictures) {
-        this.pictures = pictures;
     }
 }
