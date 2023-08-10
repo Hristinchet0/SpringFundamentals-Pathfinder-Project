@@ -35,11 +35,15 @@
                     <div class="col-auto">
                         <input type="text"
                                th:field="*{username}"
+                               th:errorclass="'is-invalid bg-danger'"
                                required minlength="4" maxlength="20"
                                id="inputUsername"
                                class="form-control"
                                aria-describedby="usernameHelpInline">
                     </div>
+                    <small class="invalid-feedback">
+                            <span class="bg-danger">Username is not correct</span>
+                    </small>
                 </div>
                 <div>
                     <div class="col-auto">
