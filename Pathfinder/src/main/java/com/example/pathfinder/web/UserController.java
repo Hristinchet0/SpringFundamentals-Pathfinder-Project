@@ -6,7 +6,6 @@ import com.example.pathfinder.model.service.UserServiceModel;
 import com.example.pathfinder.model.view.UserViewModel;
 import com.example.pathfinder.service.UserService;
 import com.example.pathfinder.util.CurrentUser;
-import org.dom4j.rule.Mode;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +23,13 @@ public class UserController {
 
     private final ModelMapper modelMapper;
 
+    private final CurrentUser currentUser;
 
-    public UserController(UserService userService, ModelMapper modelMapper) {
+
+    public UserController(UserService userService, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @ModelAttribute
@@ -126,6 +128,12 @@ public class UserController {
 
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable Long id, Model model) {
+
+
+        if (currentUser.getId() == null) {
+            return "redirect:/users/login";
+        }
+
         model.addAttribute("user",
                 modelMapper
                         .map(userService.findById(id),
